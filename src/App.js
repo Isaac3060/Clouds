@@ -1,32 +1,32 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
 const api = {
-  key:"b9b91b0a547af2d9fdbe42497400fd93",
-  base:"https://api.openweathermap.org/data/2.5/"
+  key: "b9b91b0a547af2d9fdbe42497400fd93",
+  base: "https://api.openweathermap.org/data/2.5/"
 }
-function App() {
+function App () {
 
-  const [query,setQuery]=useState('')
-  const [weather,setWeather]=useState({});
+  const [query, setQuery] = useState('')
+  const [weather, setWeather] = useState({});
   const search = evt => {
-    if (evt.key==="Enter"){
+    if (evt.key === "Enter") {
       fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
-      .then(res=>res.json())
-      .then(result => {
-        setWeather(result);
-        setQuery('');
-        console.log(result);
-    });
+        .then(res => res.json())
+        .then(result => {
+          setWeather(result);
+          setQuery('');
+          console.log(result);
+        });
+    }
   }
-}
 
-  const dateBuilder=(d)=>{
+  const dateBuilder = (d) => {
     let months = [
-        "January","February","March","April","May","June",
-        "July","August","September","October","November","December"
-        ];
-    
-    let days= ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+
+    let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
     let day = days[d.getDay()];
     let date = d.getDate();
@@ -36,47 +36,54 @@ function App() {
     return `${day} ${date} ${month} ${year}`
   }
 
-  
+
   //This returns a different background for when there are different temperatures
   return (
     <div className={
-      (typeof weather.main !="undefined") ? ((weather.main.temp<16)? 'app cold':'app')
-    :'app'}>
+      (weather.main != undefined)
+      && (
+        weather.main.temp < 16 ? 'app-cold'
+          :
+          weather.main.temp < 30 ? 'app-warm'
+            :
+            weather.main.temp > 30 ? 'app-hot'
+              : 'app')
+    }>
 
-    <div className={
-      (typeof weather.main !="undefined") ? ((weather.main.temp>16) && (weather.main.temp<30)? 'app warm':'app')
+      {/* <div className={
+      ( weather.main !=undefined) ? ((weather.main.temp>16) && (weather.main.temp<30)? 'app warm':'app')
     :'app'}></div>
 
     <div className={
-      (typeof weather.main !="undefined") ? ((weather.main.temp>30)? 'app hot':'app')
-    :'app'}></div>
+      ( weather.main !=undefined) ? ((weather.main.temp>30)? 'app hot':'app')
+    :'app'}></div> */}
 
 
 
       <main>
         <div className="search-box">
           <input
-          type="text"
-          className="search-bar"
-          placeholder="Search..."
-          onChange={e =>setQuery(e.target.value)}
-          value={query}
-          onKeyPress={search}
+            type="text"
+            className="search-bar"
+            placeholder="Search..."
+            onChange={e => setQuery(e.target.value)}
+            value={query}
+            onKeyPress={search}
           >
-          </input>     
+          </input>
         </div>
-          {(typeof weather.main !="undefined") ?(
-            <div>
-                <div className="location-box">
-                  <div className="location">{weather.name},{weather.sys.country}</div>
-                  <div className="date">{dateBuilder(new Date())}</div>
-                </div>
-                <div className="weather-box">
-                  <div className="temp">{Math.round(weather.main.temp)}°C</div>
-                  <div className="weather">{weather.weather[0].main}</div>
-              </div>
+        {(weather.main != undefined) ? (
+          <div>
+            <div className="location-box">
+              <div className="location">{weather.name},{weather.sys.country}</div>
+              <div className="date">{dateBuilder(new Date())}</div>
             </div>
-        ):('') }
+            <div className="weather-box">
+              <div className="temp">{Math.round(weather.main.temp)}°C</div>
+              <div className="weather">{weather.weather[0].main}</div>
+            </div>
+          </div>
+        ) : ('')}
       </main>
     </div>
   );

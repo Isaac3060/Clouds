@@ -8,19 +8,19 @@ body{
   font-family: 'monsteratt',sans-serif;
 }
 
-.app.cold{
+.app-cold{
   background-image: url(./assets/cold.jpg);
   background-size: cover;
   background-position: bottom;
   transition:0.4 ease;
 }
-.app.warm{
+.app-warm{
   background-image: url(./assets/warm.jpg);
   background-size: cover;
   background-position: bottom;
   transition:0.4 ease;
 }
-.app.hot{
+.app-hot{
   background-image: url(./assets/hot.jpg);
   background-size: cover;
   background-position: bottom;
