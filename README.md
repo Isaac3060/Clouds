@@ -1,3 +1,16 @@
+#Nubes
+A react app which allows the user to look know the time, date and weather for an speficic city or region in the planet using a public API.
+
+#Technologies used
+Javascript
+React
+CSS
+HTML
+
+#Public API used
+https://openweathermap.org/api
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
