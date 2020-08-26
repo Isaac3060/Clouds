@@ -36,6 +36,8 @@ function App() {
     return `${day} ${date} ${month} ${year}`
   }
 
+  
+  //This returns a different background for when there are different temperatures
   return (
     <div className={
       (typeof weather.main !="undefined") ? ((weather.main.temp<16)? 'app cold':'app')
